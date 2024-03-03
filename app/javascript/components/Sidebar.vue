@@ -1,9 +1,10 @@
 <template>
-  <div class="static">
-    <ul className="menu bg-base-200 h-svh mt-10 ml-5 rounded-box">
-      <li><a>Item 1</a></li>
-      <li><a>Item 2</a></li>
-      <li><a>Item 3</a></li>
+  <div class="static w-full">
+    <ul className="menu bg-base-200 mt-10 ml-5 rounded-box">
+      <li><a>Main</a></li>
+      <li><a>History</a></li>
+      <li><a>Search Settings</a></li>
+      <li><a>DB Settings</a></li>
     </ul>
   </div>
 </template>
