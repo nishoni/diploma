@@ -34,8 +34,12 @@ import Main from "../components/Main.vue"
 import Navbar from "../components/Navbar.vue"
 import Sidebar from "../components/Sidebar.vue"
 import MainPage from "../components/Main-Page.vue"
+import History from "../components/History.vue"
+import SearchSettings from "../components/Search-Settings.vue"
 
 const app = createApp(Main).mount("#main")
 const navbar = createApp(Navbar).mount("#navbar")
 const sidebar = createApp(Sidebar).mount("#sidebar")
 const main_page = createApp(MainPage).mount("#mainpage")
+const history = createApp(History).mount("#history")
+const search_settings = createApp(SearchSettings).mount("#searchsettings")

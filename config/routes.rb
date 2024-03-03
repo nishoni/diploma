@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "queries#index"
+  root "queries#search"
   resources :users
   resources :queries
+
+  get '/search_settings', to: 'queries#search_settings'
 end

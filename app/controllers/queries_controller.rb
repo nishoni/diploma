@@ -1,5 +1,8 @@
 class QueriesController < ApplicationController
-  def index
+  def search
+  end
+
+  def search_settings
   end
 
   def new
