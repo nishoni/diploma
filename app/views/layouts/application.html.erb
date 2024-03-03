@@ -24,7 +24,15 @@
 
   <body>
     <%= content_tag(:div, "", id: "navbar") %>
-    <%= content_tag(:div, "", id: "sidebar") %>
-    <%= yield %>
+    <div class="static">
+      <div class="flex">
+        <div class="static w-1/6">
+          <%= content_tag(:div, "", id: "sidebar") %>
+        </div>
+        <div class="static m-10 w-5/6">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

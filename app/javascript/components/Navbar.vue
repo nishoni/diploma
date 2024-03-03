@@ -1,5 +1,5 @@
 <template lang="">
-  <div className="navbar bg-base-100">
+  <div className="navbar bg-base-200">
   <div className="flex-1">
     <!-- Зменить на название сайта, добавить ссылку на главную страницу -->
     <a className="btn btn-ghost text-xl">daisyUI</a>

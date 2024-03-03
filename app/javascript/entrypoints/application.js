@@ -33,7 +33,9 @@ import { createApp } from "vue";
 import Main from "../components/Main.vue"
 import Navbar from "../components/Navbar.vue"
 import Sidebar from "../components/Sidebar.vue"
+import MainPage from "../components/Main-Page.vue"
 
 const app = createApp(Main).mount("#main")
 const navbar = createApp(Navbar).mount("#navbar")
 const sidebar = createApp(Sidebar).mount("#sidebar")
+const main_page = createApp(MainPage).mount("#mainpage")

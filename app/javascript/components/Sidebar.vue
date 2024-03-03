@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <ul className="menu bg-base-200 w-56 rounded-box">
+  <div class="static">
+    <ul className="menu bg-base-200 h-svh mt-10 ml-5 rounded-box">
       <li><a>Item 1</a></li>
       <li><a>Item 2</a></li>
       <li><a>Item 3</a></li>
@@ -14,6 +14,6 @@ export default {
 </script>
 <style scoped>
   /* div {
-    background-color: blue;
+    align: center;
   } */
 </style>
