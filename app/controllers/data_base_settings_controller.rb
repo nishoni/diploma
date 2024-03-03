@@ -1,0 +1,2 @@
+class DataBaseSettingsController < ApplicationController
+end

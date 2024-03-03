@@ -1,0 +1,2 @@
+module DataBaseSettingsHelper
+end
