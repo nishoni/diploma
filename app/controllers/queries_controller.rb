@@ -1,4 +1,4 @@
-class MainController < ApplicationController
+class QueriesController < ApplicationController
   def index
   end
 
