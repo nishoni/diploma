@@ -19,27 +19,19 @@
                 <th></th>
                 <th>Name</th>
                 <th>Job</th>
-                <th>Favorite Color</th>
+                <th>Age</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-              </tr>
-              <tr>
-                <th>3</th>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td>Red</td>
+              <tr
+                v-for="item in items"
+                :key="item"
+              >
+              <!-- Посмотреть структуру -->
+                <th>{{ item.id }}</th>
+                <td>{{ item.fullName }}</td>
+                <td>{{ item.profession }}</td>
+                <td>{{ item.age }}</td>
               </tr>
             </tbody>
           </table>
@@ -59,7 +51,34 @@
 </template>
 <script>
 export default {
-  name: 'MainPage'
+  name: 'MainPage',
+  data() {
+    return {
+      items: null
+    }
+  },
+  async created() {
+    console.log('hi')
+    this.items = [{
+        id: 1,
+        fullName: 'Cy Ganderton',
+        profession: 'Quality Control Specialist',
+        age: 10
+      },
+      {
+        id: 2,
+        fullName: 'Hart Hagerty',
+        profession: 'Desktop Support Technician',
+        age: 18
+      },
+      {
+        id: 3,
+        fullName: 'Brice Swyre',
+        profession: 'Tax Accountant',
+        age: 20
+      }
+    ]
+  }
   
 }
 </script>

@@ -36,6 +36,9 @@ import Sidebar from "../components/Sidebar.vue"
 import MainPage from "../components/Main-Page.vue"
 import History from "../components/History.vue"
 import SearchSettings from "../components/Search-Settings.vue"
+import DBSettings from "../components/DB-Settings.vue"
+import SignIn from "../components/Sign-In.vue"
+import SignUp from "../components/Sign-Up.vue"
 
 const app = createApp(Main).mount("#main")
 const navbar = createApp(Navbar).mount("#navbar")
@@ -43,3 +46,6 @@ const sidebar = createApp(Sidebar).mount("#sidebar")
 const main_page = createApp(MainPage).mount("#mainpage")
 const history = createApp(History).mount("#history")
 const search_settings = createApp(SearchSettings).mount("#searchsettings")
+const db_settings = createApp(DBSettings).mount("#dbsettings")
+const sign_in = createApp(SignIn).mount("#signin")
+const sign_up = createApp(SignUp).mount("#signup")

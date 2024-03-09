@@ -2,7 +2,7 @@
   <div className="navbar bg-base-200">
   <div className="flex-1">
     <!-- Зменить на название сайта, добавить ссылку на главную страницу -->
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+    <a className="btn btn-ghost text-xl" @click="mainPath">daisyUI</a>
   </div>
   <div className="flex-none gap-2">
     <!-- мб добавить потом темы -->
@@ -45,6 +45,11 @@
 </template>
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  computed: {
+    mainPath() {
+      window.location.href = '/'
+    }
+  }
 }
 </script>

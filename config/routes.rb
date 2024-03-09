@@ -9,4 +9,9 @@ Rails.application.routes.draw do
   resources :queries
 
   get '/search_settings', to: 'queries#search_settings'
+  # мб потом поменять
+  get '/db_settings', to: 'queries#db_settings'
+
+  get '/sign_in', to: 'users#sign_in'
+  get '/sign_up', to: 'users#sign_up'
 end
