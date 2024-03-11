@@ -38,11 +38,15 @@
         </div>
       </div>
       <div class="static w-1/6 m-10 h-full items-center">
-        <div class="bg-base-300 h-full mb-5 p-5 rounded-box">
-          here's the statistics
+        <div class="flex justify-center bg-base-300 h-full mb-5 p-5 rounded-box">
+          <div class="static my-10 mx-5 prose">
+            <div class="mb-5"><h1>14 000</h1> объем ответа в Гб</div>
+            <div class="mb-5"><h1>14 000</h1> записей в ответе</div>
+            <div class="mb-5"><h1>14 000</h1> секунд занял запрос</div>
+          </div>
         </div>
         <div class="flex flex-col items-center">
-          <button className="btn btn-neutral w-full">CSV export</button>
+          <button className="btn btn-neutral w-full">CSV экспорт</button>
         </div>
       </div>
     </div>

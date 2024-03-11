@@ -48,7 +48,6 @@ export default {
     }
   },
   async created() {
-    console.log('hi')
     this.items = [{
         id: 1,
         fullName: 'Cy Ganderton',
