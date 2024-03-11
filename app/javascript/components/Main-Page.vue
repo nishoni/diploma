@@ -62,7 +62,7 @@ export default {
     }
   },
   async created() {
-    console.log('hi')
+    console.log(this.$route)
     this.items = [{
         id: 1,
         fullName: 'Cy Ganderton',

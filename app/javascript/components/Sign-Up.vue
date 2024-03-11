@@ -21,7 +21,7 @@
       </label>
     </div>
     <div class="flex justify-center mb-2">
-      <button className="btn btn-neutral">Sign Up</button>
+      <button className="btn btn-neutral" @click="signUp">Sign Up</button>
     </div>
     <div class="flex justify-center mb-2">
       Already has an account? <button class="btn-link ml-1 mb-5" @click="signInPath">Sign In</button>
@@ -29,11 +29,22 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'SignUp',
   methods: {
     signInPath() {
       window.location.href = '/sign_in'
+    },
+    signUp() {
+      axios.post('/users', { login: 'frst', password: '123', email: 'test@test.ru' })
+      .then((response) => {
+        // оч жесткий костыль
+        window.location.href = response.data.path
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
