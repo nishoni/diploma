@@ -82,7 +82,7 @@
         </div>
 
         <div class="static mt-10 ml-0">
-          <button className="btn btn-neutral w-full">Загрузить БД</button>
+          <button className="btn btn-neutral w-full" @click="loadDB">Загрузить БД</button>
         </div>
       </div>
     </div>
@@ -111,6 +111,11 @@ export default {
         age: 20
       }
     ]
+  },
+  methods: {
+    loadDB() {
+      console.log('loadDB')
+    }
   }
 }
 </script>

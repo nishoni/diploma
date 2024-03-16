@@ -7,13 +7,18 @@
       field example
     </div>
     <div class="static grid mt-10 justify-items-end">
-      <button className="btn btn-neutral">Save</button>
+      <button className="btn btn-neutral" @click="saveSettings">Save</button>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'Search-Settings'
+  name: 'Search-Settings',
+  methods: {
+    saveSettings() {
+      console.log('saveSettings')
+    }
+  }
 }
 </script>
 <style>

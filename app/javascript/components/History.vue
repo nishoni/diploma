@@ -7,7 +7,7 @@
         </label>
       </div>
       <div class="static">
-        <button className="btn btn-neutral">Search</button>
+        <button className="btn btn-neutral" @click="startSearch">Search</button>
       </div>
     </div>
     <!-- Здесь таблица по запросам -->
@@ -67,6 +67,11 @@ export default {
         age: 20
       }
     ]
+  },
+  methods: {
+    startSearch() {
+      console.log('startSearch')
+    }
   }
 }
 </script>

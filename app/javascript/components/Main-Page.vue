@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center">
-          <button className="btn btn-neutral w-full">CSV экспорт</button>
+          <button className="btn btn-neutral w-full" @click="csvExport">CSV экспорт</button>
         </div>
       </div>
     </div>
@@ -62,7 +62,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.$route)
     this.items = [{
         id: 1,
         fullName: 'Cy Ganderton',
@@ -82,6 +81,11 @@ export default {
         age: 20
       }
     ]
+  },
+  methods: {
+    csvExport() {
+      console.log('csvExport')
+    }
   }
   
 }

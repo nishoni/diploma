@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   get '/db_settings', to: 'queries#db_settings'
 
   get '/sign_in', to: 'users#sign_in'
+  post '/signing_in', to: 'users#signing_in'
   get '/sign_up', to: 'users#sign_up'
 end

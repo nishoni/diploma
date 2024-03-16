@@ -1,13 +1,17 @@
 class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def sign_in
-    user = User.find_by(login: params[:login], password: params[:password])
+  def sign_in; end
+
+  def signing_in
+    user = User.find_by(email: params[:email], password: params[:password])
 
     # TODO: Добавить нотификацию
     # Добавить сессии
     if user
-      redirect_to :home
+      render json: { path: '/' }
+    else
+      render json: { path: '/sign_in' }
     end
   end
 
