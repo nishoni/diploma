@@ -14,7 +14,7 @@ export default {
 
   computed: {
     showSidebar() {
-      return window.location.pathname !== '/sign_in' && window.location.pathname !== '/sign_up'
+      return window.location.pathname !== '/sign_up' && window.location.pathname !== '/sign_in'
     }
   },
 

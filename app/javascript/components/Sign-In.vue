@@ -57,7 +57,7 @@ export default {
     signIn() {
       console.log('signIn')
       // console.log(this.fields)
-      axios.post('/signing_in', {
+      axios.post('/sign_in', {
         password: this.fields['password'].value,
         email: this.fields['email'].value
       }).then((response) => {

@@ -4,7 +4,7 @@
       <div class="flex justify-center mb-2">
         <label className="input input-bordered flex items-center">
           <input
-            :type="isPassword(field.name) === true ? 'password' : 'text'"
+            :type="isPassword(field.name) ? 'password' : 'text'"
             :placeholder="field.placeholder"
             @input="(event) => updateField(field, event)"
           />
@@ -55,7 +55,7 @@ export default {
       window.location.href = '/sign_in'
     },
     signUp() {
-      axios.post('/users', {
+      axios.post('/registrations', {
         login: this.fields['login'].value,
         password: this.fields['password'].value,
         email: this.fields['email'].value

@@ -74,3 +74,4 @@ end
 gem "vite_rails", "~> 3.0"
 
 gem "bootstrap", "~> 5.3"
+gem 'bcrypt', '~> 3.1.7'

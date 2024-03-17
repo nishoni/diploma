@@ -1,35 +1,38 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
+  # skip_before_action :verify_authenticity_token
 
-  def sign_in; end
+  # def sign_in; end
 
-  def signing_in
-    user = User.find_by(email: params[:email], password: params[:password])
+  # def signing_in
+  #   user = User.find_by(email: params[:email], password: params[:password])
 
-    # TODO: Добавить нотификацию
-    # Добавить сессии
-    if user
-      render json: { path: '/' }
-    else
-      render json: { path: '/sign_in' }
-    end
-  end
+  #   # TODO: Добавить нотификацию
+  #   # Добавить сессии
+  #   if user
+  #     render json: { path: '/' }
+  #   else
+  #     render json: { path: '/sign_in' }
+  #   end
+  # end
 
-  def sign_up; end
+  # def sign_up; end
 
-  def create
-    user = User.new(user_params)
+  # def create
+  #   user = User.new(user_params)
 
-    # TODO: Добавить нотификацию
-    if user.save!
-      # и вот за это я попаду в ад...
-      render json: { path: '/' }
-    end
-  end
+  #   # TODO: Добавить нотификацию
+  #   if user.save!
+  #     # и вот за это я попаду в ад...
+  #     render json: { path: '/' }
+  #   else
+  #     render json: { path: '/sign_up' }
+  #   end
+  # end
 
-  private
+  # private
 
-  def user_params
-    params.require(:user).permit(:login, :email, :password)
-  end
+  # def user_params
+  #   params.require(:user).permit(:login, :email, :password)
+  # end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_03_161114) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_17_141631) do
   create_table "queries", force: :cascade do |t|
     t.string "word", null: false
     t.datetime "time_start"
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_03_161114) do
   create_table "users", force: :cascade do |t|
     t.string "login", null: false
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
