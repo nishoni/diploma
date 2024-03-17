@@ -3,11 +3,16 @@
     <div class="flex justify-center">
       <div class="static w-3/4 m-10 ml-20">
         <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Search" />
+          <input
+            type="text"
+            className="grow"
+            placeholder="Search" 
+            @input="(event) => updateField(event)"
+          />
         </label>
       </div>
       <div class="static mt-10 ml-0">
-        <button className="btn btn-neutral">Search</button>
+        <button className="btn btn-neutral" @click="doSearch">Search</button>
       </div>
     </div>
     <div class="flex justify-evenly">
@@ -54,11 +59,15 @@
   
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: 'MainPage',
   data() {
     return {
-      items: null
+      items: {},
+      statistics: {},
+      search_field: null
     }
   },
   async created() {
@@ -85,6 +94,29 @@ export default {
   methods: {
     csvExport() {
       console.log('csvExport')
+
+      axios.post('export', {
+        items: this.items
+      }).then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    doSearch() {
+      console.log('doSearch')
+
+      axios.post('search', {
+        search_field: this.search_field
+      }).then((response) => {
+        this.items = response.data.items
+        this.statistics = response.data.statistics
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    updateField(event) {
+      this.search_field = event.target.value
     }
   }
   
