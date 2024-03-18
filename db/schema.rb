@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_17_141631) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_201357) do
   create_table "queries", force: :cascade do |t|
     t.string "word", null: false
     t.datetime "time_start"
@@ -29,6 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_141631) do
     t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "coefficient", default: 0.6, null: false
+    t.integer "max_result_count", default: 10, null: false
   end
 
   add_foreign_key "queries", "users"

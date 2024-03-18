@@ -93,8 +93,6 @@ export default {
   },
   methods: {
     csvExport() {
-      console.log('csvExport')
-
       axios.post('export', {
         items: this.items
       }).then((response) => {
@@ -104,8 +102,6 @@ export default {
       })
     },
     doSearch() {
-      console.log('doSearch')
-
       axios.post('search', {
         search_field: this.search_field
       }).then((response) => {
@@ -122,6 +118,3 @@ export default {
   
 }
 </script>
-<style lang="">
-  
-</style>
