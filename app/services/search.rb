@@ -17,9 +17,13 @@ class Search
     result_strings_count = 0
     words.each do |word|
       break if result_strings_count >= user.max_result_count
-      next unless user.coefficient >= pre_check(word)
+      next unless user.coefficient >= pre_check(word) || user.coefficient >= second_pre_check(word)
 
-      LevensteinAlgorithm.new(search_field:, word:, user_id:)
+      distance = DamerauLevensteinAlgorithm.new(search_field:, word:, user_id:).perform
+      if distance >= user.coefficient
+        result_strings_count += 1
+        @items << word
+      end
     end
 
     @time_stop = Time.zone.now
@@ -48,19 +52,24 @@ class Search
     @words ||= {}
   end
 
-  # Здесь первая проверка
+  # Здесь первая препроверка
   def pre_check(word)
     alphabet_for_word = {}
 
-    matched_count = 0
-    alphabet_map_for_field.each { |letter, count| matched += 1 if count == word.count(letter) }
+    present = 0
+    alphabet_map_for_field.each { |letter, is_in| present += 1 if is_in != 0 && word.include?(letter) }
 
-    matched_count / ALPHABET.count
+    present / ALPHABET.count
   end
 
-  # Главный алгоритм
-  def main_algorithm
-    
+  # Здесь вторая препроверка
+  def second_pre_check(word)
+    alphabet_for_word = {}
+
+    matched = 0
+    alphabet_map_for_field.each { |letter, count| matched += 1 if count == word.count(letter) }
+
+    matched / ALPHABET.count
   end
 
   def alphabet_map_for_field
