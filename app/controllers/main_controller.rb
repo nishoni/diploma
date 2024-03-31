@@ -18,6 +18,7 @@ class MainController < ApplicationController
   end
 
   def export
-    # тут csv экспорт
+    send_data CsvExport.new(items: params[:items].values).perform,
+                   filename: "#{params[:search_field]}-#{Time.zone.now.strftime('%d.%m.%Y_%H.%M')}.csv"
   end
 end

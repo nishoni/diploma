@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # мб потом поменять
   get '/db_settings', to: 'queries#db_settings'
   post 'search', to: 'main#search'
-  post 'export', to: 'main#export'
+  get 'export', to: 'main#export'
 
   get '/sign_in', to: 'sessions#new'
   post '/sign_in', to: 'sessions#create'

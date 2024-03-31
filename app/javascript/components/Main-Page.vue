@@ -93,10 +93,19 @@ export default {
   },
   methods: {
     csvExport() {
-      axios.post('export', {
-        items: this.items
+      axios.get('export', {
+        params: {
+          items: this.items,
+          search_field: this.search_field,
+        }
       }).then((response) => {
         console.log(response)
+        const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' })
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = response.headers['content-disposition'].match(/filename="([^"]+)"/)[1]
+        link.click()
+        URL.revokeObjectURL(link.href)
       }).catch((error) => {
         console.log(error)
       })
