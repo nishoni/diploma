@@ -1,5 +1,6 @@
 class QueriesController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def search
   end
@@ -19,6 +20,13 @@ class QueriesController < ApplicationController
     else
       render :error
     end
+  end
+
+  def destroy
+    @query = current_user.queries.find(params[:id])
+    @query.destroy
+
+    flash[:success] = "The to-do item was successfully destroyed."
   end
 
   private

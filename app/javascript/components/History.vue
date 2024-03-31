@@ -20,6 +20,7 @@
                 <th>Word</th>
                 <th>Time</th>
                 <th>Download</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -34,6 +35,11 @@
                 <td>
                   <div class="flex flex-col items-center">
                     <button className="btn btn-neutral" @click="csvExport(query)">CSV экспорт</button>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex flex-col items-center">
+                    <button className="btn btn-neutral" @click="deleteQuery(query)">Удалить запрос</button>
                   </div>
                 </td>
               </tr>
@@ -51,7 +57,6 @@ export default {
   data() {
     return {
       queries: null,
-      user: null,
       options: {},
       today: null
     }
@@ -80,6 +85,13 @@ export default {
         link.download = response.headers['content-disposition'].match(/filename="([^"]+)"/)[1]
         link.click()
         URL.revokeObjectURL(link.href)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    deleteQuery(query) {
+      axios.delete(`queries/${query.id}`).then(response => {
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })

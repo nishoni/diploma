@@ -43,7 +43,7 @@ class Search
 
   def statistics
     @statistics ||= {
-      time_perform: @time_stop - @time_start,
+      time_perform: (@time_stop - @time_start).round(4),
       count: items.count
     }
   end

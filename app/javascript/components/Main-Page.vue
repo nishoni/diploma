@@ -45,9 +45,9 @@
       <div class="static w-1/6 m-10 h-full items-center">
         <div class="flex justify-center bg-base-300 h-full mb-5 p-5 rounded-box">
           <div class="static my-10 mx-5 prose">
-            <div class="mb-5"><h1>14 000</h1> объем ответа в Гб</div>
-            <div class="mb-5"><h1>14 000</h1> записей в ответе</div>
-            <div class="mb-5"><h1>14 000</h1> секунд занял запрос</div>
+            <div class="mb-5"><h1>{{ statistics.smth || 0 }}</h1> объем ответа в Гб</div>
+            <div class="mb-5"><h1>{{ statistics.count || 0 }}</h1> записей в ответе</div>
+            <div class="mb-5"><h1>{{ statistics.time_perform || 0 }}</h1> секунд занял запрос</div>
           </div>
         </div>
         <div class="flex flex-col items-center">
