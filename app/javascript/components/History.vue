@@ -15,23 +15,27 @@
         <div className="overflow-x-auto">
           <table className="table">
             <thead>
-              <tr>
+              <tr class="items-center">
                 <th></th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Age</th>
+                <th>Word</th>
+                <th>Time</th>
+                <th>Download</th>
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="item in items"
-                :key="item"
+                v-for="query in queries"
+                :key="query"
               >
               <!-- Посмотреть структуру -->
-                <th>{{ item.id }}</th>
-                <td>{{ item.fullName }}</td>
-                <td>{{ item.profession }}</td>
-                <td>{{ item.age }}</td>
+                <th>{{ query.id }}</th>
+                <td>{{ query.word }}</td>
+                <td>{{ formattedDate(query.time_start) }}</td>
+                <td>
+                  <div class="flex flex-col items-center">
+                    <button className="btn btn-neutral" @click="csvExport(query)">CSV экспорт</button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -40,37 +44,51 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: 'History',
   data() {
     return {
-      items: null
+      queries: null,
+      user: null,
+      options: {},
+      today: null
     }
   },
   async created() {
-    this.items = [{
-        id: 1,
-        fullName: 'Cy Ganderton',
-        profession: 'Quality Control Specialist',
-        age: 10
-      },
-      {
-        id: 2,
-        fullName: 'Hart Hagerty',
-        profession: 'Desktop Support Technician',
-        age: 18
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        profession: 'Tax Accountant',
-        age: 20
-      }
-    ]
+    axios.get('get_queries')
+    .then(response => {
+      this.queries = response.data.queries
+    }).catch(error => {
+      console.log(error)
+    })
   },
   methods: {
     startSearch() {
       console.log('startSearch')
+    },
+    csvExport(query) {
+      axios.get('history_export', {
+        params: {
+          search_field: query.word
+        }
+      }).then(response => {
+        const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' })
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = response.headers['content-disposition'].match(/filename="([^"]+)"/)[1]
+        link.click()
+        URL.revokeObjectURL(link.href)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    formattedDate(date) {
+      this.options = { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' }
+      this.today = new Date(date)
+
+      return this.today.toLocaleDateString("en-US", this.options)
     }
   }
 }

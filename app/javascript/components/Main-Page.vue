@@ -99,7 +99,6 @@ export default {
           search_field: this.search_field,
         }
       }).then((response) => {
-        console.log(response)
         const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' })
         const link = document.createElement('a')
         link.href = URL.createObjectURL(blob)

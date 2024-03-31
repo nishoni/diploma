@@ -1,15 +1,18 @@
 class Search
-  attr_accessor :user_id, :search_field
+  attr_accessor :user_id, :search_field, :is_history
 
   ALPHABET = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z]
 
-  def initialize(search_field:, user_id:)
+  def initialize(search_field:, user_id:, is_history: false)
     @search_field = search_field
     @user_id = user_id
+    @is_history = is_history
   end
 
   def perform
     @time_start = Time.zone.now
+
+    query = user.queries.create!(word: search_field, time_start: @time_start) unless is_history
 
     # Тут вызов по элементам алгоритма
     beautify
@@ -26,7 +29,12 @@ class Search
       end
     end
 
+  rescue Exception => e
+    query.search_errors = e unless is_history
+  ensure
     @time_stop = Time.zone.now
+
+    query.update(time_stop: @time_stop) unless is_history
   end
 
   def items
@@ -44,7 +52,7 @@ class Search
 
   # Здесь удаляются лишние символы, приводятся к одному виду
   def beautify
-    @search_field.gsub!(/[^A-Za-z]/, '').lowercase
+    @search_field.gsub(/[^A-Za-z]/, '').downcase!
   end
 
   # Пока заглушка
