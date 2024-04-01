@@ -6,13 +6,13 @@
           <input
             type="text"
             className="grow"
-            placeholder="Search" 
+            placeholder="Введите имя" 
             @input="(event) => updateField(event)"
           />
         </label>
       </div>
       <div class="static mt-10 ml-0">
-        <button className="btn btn-neutral" @click="doSearch">Search</button>
+        <button className="btn btn-neutral" @click="doSearch">Поиск</button>
       </div>
     </div>
     <div class="flex justify-evenly">
@@ -22,9 +22,9 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Age</th>
+                <th>Имя</th>
+                <th>Работа</th>
+                <th>Возраст</th>
               </tr>
             </thead>
             <tbody>
@@ -44,10 +44,10 @@
       </div>
       <div class="static w-1/6 m-10 h-full items-center">
         <div class="flex justify-center bg-base-300 h-full mb-5 p-5 rounded-box">
-          <div class="static my-10 mx-5 prose">
-            <div class="mb-5"><h1>{{ statistics.smth || 0 }}</h1> объем ответа в Гб</div>
-            <div class="mb-5"><h1>{{ statistics.count || 0 }}</h1> записей в ответе</div>
-            <div class="mb-5"><h1>{{ statistics.time_perform || 0 }}</h1> секунд занял запрос</div>
+          <div class="static my-10 mx-5 justify-center prose">
+            <div class="grid justify-items-center mb-5"><h1>{{ statistics.smth || 0 }}</h1> объем ответа в Гб</div>
+            <div class="grid justify-items-center mb-5"><h1>{{ statistics.count || 0 }}</h1> записей в ответе</div>
+            <div class="grid justify-items-center mb-5"><h1>{{ statistics.time_perform || 0 }}</h1> секунд занял запрос</div>
           </div>
         </div>
         <div class="flex flex-col items-center">

@@ -100,7 +100,11 @@
               </div>
             
               <div class="static m-10 w-5/5">
-                <input type="file" class="file-input file-input-bordered w-full max-w-xs"/>
+                <input
+                  type="file"
+                  class="file-input file-input-bordered w-full max-w-xs"
+                  @input="(event) => { loadDB(event.target.files) }"
+                />
               </div>
             </div>
           </div>
@@ -170,17 +174,21 @@ export default {
     
   },
   methods: {
-    loadDB() {
+    loadDB(file) {
       console.log('loadDB')
+      axios.post('load_db', {
+        file: file
+      }).then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
     },
     statisticsGet() {
       axios.get('get_statistics_db')
         .then(response => {
           console.log(response)
           this.mainStatistics = response.data.main_statistics
-          // this.usersCount = response.data.users_count
-          // this.queriesCount = response.data.queries_count
-          // this.versionsCount = response.data.versions_count
         }).catch(error => {
           console.log(error)
         })

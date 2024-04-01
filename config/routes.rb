@@ -19,4 +19,7 @@ Rails.application.routes.draw do
 
   get 'setting_fields', to: 'search_settings#setting_fields'
   post 'save_settings', to: 'search_settings#save_settings'
+
+  get 'get_statistics_db', to: 'database_settings#get_statistics_db'
+  post 'load_db', to: 'database_settings#load_db'
 end
