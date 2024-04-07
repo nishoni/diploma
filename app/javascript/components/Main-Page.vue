@@ -23,8 +23,7 @@
               <tr>
                 <th></th>
                 <th>Имя</th>
-                <th>Работа</th>
-                <th>Возраст</th>
+                <th>Коэффициент</th>
               </tr>
             </thead>
             <tbody>
@@ -34,9 +33,8 @@
               >
               <!-- Посмотреть структуру -->
                 <th>{{ item.id }}</th>
-                <td>{{ item.fullName }}</td>
-                <td>{{ item.profession }}</td>
-                <td>{{ item.age }}</td>
+                <td>{{ item.full_name }}</td>
+                <td>{{ item.coefficient }}</td>
               </tr>
             </tbody>
           </table>
@@ -45,13 +43,13 @@
       <div class="static w-1/6 m-10 h-full items-center">
         <div class="flex justify-center bg-base-300 h-full mb-5 p-5 rounded-box">
           <div class="static my-10 mx-5 justify-center prose">
-            <div class="grid justify-items-center mb-5"><h1>{{ statistics.smth || 0 }}</h1> объем ответа в Гб</div>
+            <div class="grid justify-items-center mb-5"><h1>{{ statistics.volume || 0 }}</h1> объем ответа в байтах</div>
             <div class="grid justify-items-center mb-5"><h1>{{ statistics.count || 0 }}</h1> записей в ответе</div>
             <div class="grid justify-items-center mb-5"><h1>{{ statistics.time_perform || 0 }}</h1> секунд занял запрос</div>
           </div>
         </div>
         <div class="flex flex-col items-center">
-          <button className="btn btn-neutral w-full" @click="csvExport">CSV экспорт</button>
+          <button className="btn btn-neutral w-full" :disabled="!items" @click="csvExport">CSV экспорт</button>
         </div>
       </div>
     </div>
@@ -65,31 +63,10 @@ export default {
   name: 'MainPage',
   data() {
     return {
-      items: {},
+      items: null,
       statistics: {},
       search_field: null
     }
-  },
-  async created() {
-    this.items = [{
-        id: 1,
-        fullName: 'Cy Ganderton',
-        profession: 'Quality Control Specialist',
-        age: 10
-      },
-      {
-        id: 2,
-        fullName: 'Hart Hagerty',
-        profession: 'Desktop Support Technician',
-        age: 18
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        profession: 'Tax Accountant',
-        age: 20
-      }
-    ]
   },
   methods: {
     csvExport() {

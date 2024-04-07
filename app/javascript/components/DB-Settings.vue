@@ -4,30 +4,27 @@
       <div class="static w-1/3 bg-base-200 rounded-box mx-5 mr-10">
         <div class="stat place-items-center h-full">
           <div class="stat-title">Зарегистрированных пользователей</div>
-          <div class="stat-value mt-5">{{ mainStatistics.usersCount || 0 }}</div>
+          <div class="stat-value mt-5">{{ mainStatistics.users.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From 1st January to 1st February</p>
-            <p>21% more than last month</p>
+            <p>From {{ mainStatistics.users.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>
       <div class="static w-1/3 bg-base-200 rounded-box mx-10 ml-20">
         <div class="stat place-items-center h-full">
           <div class="stat-title">Запросов выполнено</div>
-          <div class="stat-value mt-5">{{ mainStatistics.queriesCount || 0 }}</div>
+          <div class="stat-value mt-5">{{ mainStatistics.queries.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From 1st January to 1st February</p>
-            <p>21% more than last month</p>
+            <p>From {{ mainStatistics.queries.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>
       <div class="static w-1/3 bg-base-200 rounded-box mx-5 ml-20">
         <div class="stat place-items-center h-full">
           <div class="stat-title">Версий БД загружено</div>
-          <div class="stat-value mt-5">{{ mainStatistics.versionsCount || 0 }}</div>
+          <div class="stat-value mt-5">{{ mainStatistics.db_versions.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From 1st January to 1st February</p>
-            <p>21% more than last month</p>
+            <p>From {{ mainStatistics.db_versions.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>
@@ -59,8 +56,9 @@
                   <thead>
                     <tr>
                       <th></th>
-                      <th>Name</th>
-                      <th>Date</th>
+                      <th>Имя</th>
+                      <th>Версия</th>
+                      <th>Время загрузки</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -70,7 +68,8 @@
                     >
                     <!-- Посмотреть структуру -->
                       <th>{{ item.id }}</th>
-                      <td>{{ item.fullName }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.version }}</td>
                       <td>{{ item.date }}</td>
                     </tr>
                   </tbody>
@@ -86,8 +85,8 @@
         <div class="static justify-center bg-base-200 rounded-box">
           <div class="flex justify-center">
             <div class="static mx-5 prose">
-              <div class="my-5"><h1>14 000</h1> объем БД в Гб</div>
-              <div class="mb-5"><h1>14 000</h1> записей БД в Гб</div>
+              <div class="my-5"><h1>{{ sideStatistics.volume || 0 }}</h1> объем БД в байтах</div>
+              <div class="mb-5"><h1>{{ sideStatistics.records_count || 0 }}</h1> записей БД</div>
             </div>
           </div>
         </div>
@@ -103,7 +102,7 @@
                 <input
                   type="file"
                   class="file-input file-input-bordered w-full max-w-xs"
-                  @input="(event) => { loadDB(event.target.files) }"
+                  @input="(event) => { loadDB(event.target.files[0]) }"
                 />
               </div>
             </div>
@@ -120,75 +119,54 @@ export default {
   name: 'DBSettings',
   data() {
     return {
-      items: null,
+      items: [],
       mainStatistics: {},
-      usersCount: 0,
-      queriesCount: 0,
-      versionsCount: 0
+      sideStatistics: {}
     }
   },
   async created() {
-    this.items = [{
-        id: 1,
-        fullName: 'Cy Ganderton',
-        date: 'Quality Control Specialist',
-        age: 10
-      },
-      {
-        id: 2,
-        fullName: 'Hart Hagerty',
-        date: 'Desktop Support Technician',
-        age: 18
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        date: 'Tax Accountant',
-        age: 20
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        date: 'Tax Accountant',
-        age: 20
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        date: 'Tax Accountant',
-        age: 20
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        date: 'Tax Accountant',
-        age: 20
-      },
-      {
-        id: 3,
-        fullName: 'Brice Swyre',
-        date: 'Tax Accountant',
-        age: 20
-      }
-    ]
-    
+    axios.get('db_versions'
+      ).then(response => {
+        this.items = response.data.items
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+
+    await this.mainStatisticsGet()
+    await this.sideStatisticsGet()
   },
   methods: {
     loadDB(file) {
-      console.log('loadDB')
-      axios.post('load_db', {
-        file: file
+      let formData = new FormData();
+      formData.append('file', file);
+
+      axios.post('load_db',
+        formData,
+        {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+        }
       }).then(response => {
         console.log(response)
       }).catch(error => {
         console.log(error)
       })
     },
-    statisticsGet() {
-      axios.get('get_statistics_db')
+    mainStatisticsGet() {
+      axios.get('main_statistics_db')
         .then(response => {
           console.log(response)
-          this.mainStatistics = response.data.main_statistics
+          this.mainStatistics = response.data
+        }).catch(error => {
+          console.log(error)
+        })
+    },
+    sideStatisticsGet() {
+      axios.get('side_statistics_db')
+        .then(response => {
+          console.log(response)
+          this.sideStatistics = response.data
         }).catch(error => {
           console.log(error)
         })

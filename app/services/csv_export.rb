@@ -8,6 +8,8 @@ class CsvExport
   end
 
   def perform
+    return if items.blank?
+
     CSV.generate do |csv|
       csv << column_names
 
@@ -23,17 +25,15 @@ class CsvExport
   def column_names
     [
       'Имя',
-      'Работа',
-      'Возраст'
+      'Коэффициент'
     ]
   end
 
   # TODO: проверить структуру
   def row(item)
     [
-      item["fullName"],
-      item["profession"],
-      item["age"]
+      item["full_name"],
+      item["coefficient"]
     ]
   end
 end

@@ -13,22 +13,42 @@ class Search
     @time_start = Time.zone.now
 
     query = user.queries.create!(word: search_field, time_start: @time_start) unless is_history
+    fitted = false
+    items
 
     # Тут вызов по элементам алгоритма
     beautify
 
     result_strings_count = 0
-    words.each do |word|
-      break if result_strings_count >= user.max_result_count
-      next unless user.coefficient >= pre_check(word) || user.coefficient >= second_pre_check(word)
+    fitted_coef = 0
+    xml_items.each do |csl_id, words|
+      break if result_strings_count >= user.max_result_count && user.max_result_count != -1
 
-      distance = DamerauLevensteinAlgorithm.new(search_field:, word:, user_id:).perform
-      if distance >= user.coefficient
+      words.each do |word|
+        word = word.gsub(/[^A-Za-z]/, '').downcase
+
+        next unless user.coefficient < pre_check(word) && user.coefficient < second_pre_check(word)
+
+        distance = (search_field.length.to_f - DamerauLevensteinAlgorithm.new(search_field:, word:, user_id:).perform.to_f) / search_field.length
+
+        if distance >= user.coefficient
+          fitted = true
+          fitted_coef = distance
+          break
+        end
+      end
+
+      if fitted
         result_strings_count += 1
-        @items << word
+        item = XmlItem.find_by(csl_id:)
+        @items << {
+          id: item.id,
+          full_name: "#{item.first_name} #{item.last_name}".strip,
+          coefficient: (fitted_coef * 100).round(2)
+        }
+        fitted = false
       end
     end
-
   rescue Exception => e
     query.search_errors = e unless is_history
   ensure
@@ -44,7 +64,8 @@ class Search
   def statistics
     @statistics ||= {
       time_perform: (@time_stop - @time_start).round(4),
-      count: items.count
+      count: items.count,
+      volume: Marshal.dump(items).size
     }
   end
 
@@ -52,29 +73,38 @@ class Search
 
   # Здесь удаляются лишние символы, приводятся к одному виду
   def beautify
-    @search_field.gsub(/[^A-Za-z]/, '').downcase!
+    @search_field = @search_field.gsub(/[^A-Za-z]/, '').downcase!
   end
 
-  # Пока заглушка
-  def words
-    @words ||= {}
+  def xml_items
+    return @xml_items if @xml_items
+
+    @xml_items = {}
+    XmlItem.all.each do |item|
+      @xml_items[item.csl_id] = [
+          "#{item.first_name} #{item.last_name}".strip,
+          item.aliases.map { |alias_item| "#{alias_item[:first_name]} #{alias_item[:last_name]}".strip }
+        ].flatten
+    end
+
+    @xml_items
   end
 
   # Здесь первая препроверка
   def pre_check(word)
     alphabet_for_word = {}
 
-    present = 0
+    present = 0.0
     alphabet_map_for_field.each { |letter, is_in| present += 1 if is_in != 0 && word.include?(letter) }
 
-    present / ALPHABET.count
+    [present, word.each_char.tally.count].min / [present, word.each_char.tally.count].max
   end
 
   # Здесь вторая препроверка
   def second_pre_check(word)
     alphabet_for_word = {}
 
-    matched = 0
+    matched = 0.0
     alphabet_map_for_field.each { |letter, count| matched += 1 if count == word.count(letter) }
 
     matched / ALPHABET.count

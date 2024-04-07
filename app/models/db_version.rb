@@ -1,0 +1,2 @@
+class DbVersion < ApplicationRecord
+end

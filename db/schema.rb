@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_201357) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_07_173155) do
+  create_table "db_versions", force: :cascade do |t|
+    t.integer "version", null: false
+    t.integer "new_items_created", default: 0
+    t.boolean "current", default: true, null: false
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_db_versions_on_user_id"
+  end
+
   create_table "queries", force: :cascade do |t|
     t.string "word", null: false
     t.datetime "time_start"
@@ -33,5 +43,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_201357) do
     t.integer "max_result_count", default: 10, null: false
   end
 
+  create_table "xml_items", force: :cascade do |t|
+    t.string "gender"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.datetime "birth_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "aliases"
+    t.text "roles"
+    t.text "addresses"
+    t.integer "csl_id", null: false
+    t.text "place_of_birth"
+    t.integer "db_version_id"
+    t.index ["db_version_id"], name: "index_xml_items_on_db_version_id"
+  end
+
+  add_foreign_key "db_versions", "users"
   add_foreign_key "queries", "users"
+  add_foreign_key "xml_items", "db_versions"
 end
