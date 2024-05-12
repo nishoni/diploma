@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   get '/sign_in', to: 'sessions#new'
   post '/sign_in', to: 'sessions#create'
   delete "logout", to: "sessions#destroy"
+  get 'get_user_info', to: "sessions#get_user_info"
 
   get '/sign_up', to: 'registrations#new'
+  post '/registrations', to: 'registrations#create'
 
   get 'get_queries', to: 'history#queries'
   get 'history_export', to: 'history#export'

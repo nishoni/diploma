@@ -8,17 +8,17 @@ class DamerauLevensteinAlgorithm
   end  
 
   def perform
-    damerau_levenshtein_distance
+    damerau_levenstein_distance
   end
 
   private
 
-  def damerau_levenshtein_distance
+  def damerau_levenstein_distance
     word_l = word.length
     search_l = search_field.length
     matrix = Array.new(word_l + 1, [])
     matrix.each_index { |row| matrix[row] = Array.new(search_l + 1, 0) }
-  
+
     (0..word_l).each { |dist| matrix[dist][0] = dist }
     (0..search_l).each { |dist| matrix[0][dist] = dist }
   
@@ -33,12 +33,12 @@ class DamerauLevensteinAlgorithm
           matrix[i - 1][j - 1] + cost
         ].min
   
-        if word[i] == search_field[j - 1] && word[i - 1] == search_field[j]
+        if i > 1 && j > 1 && word[i] == search_field[j - 1] && word[i - 1] == search_field[j]
           matrix[i][j] = [matrix[i][j], matrix[i - 2][j - 2] + 1].min
         end
       end
     end
-  
+
     matrix[word_l][search_l]
   end
 end

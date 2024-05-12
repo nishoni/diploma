@@ -21,19 +21,21 @@ class Search
 
     result_strings_count = 0
     fitted_coef = 0
+    fitted_word = ''
     xml_items.each do |csl_id, words|
       break if result_strings_count >= user.max_result_count && user.max_result_count != -1
 
       words.each do |word|
-        word = word.gsub(/[^A-Za-z]/, '').downcase
+        changed_word = word.gsub(/[^A-Za-z]/, '').downcase
 
-        next unless user.coefficient < pre_check(word) && user.coefficient < second_pre_check(word)
+        next unless user.coefficient < pre_check(changed_word) && user.coefficient < second_pre_check(changed_word)
 
-        distance = (search_field.length.to_f - DamerauLevensteinAlgorithm.new(search_field:, word:, user_id:).perform.to_f) / search_field.length
+        distance = ([search_field.length, word.length].max.to_f - DamerauLevensteinAlgorithm.new(search_field:, word: changed_word, user_id:).perform.to_f) / [search_field.length, word.length].max
 
         if distance >= user.coefficient
           fitted = true
           fitted_coef = distance
+          fitted_word = word
           break
         end
       end
@@ -42,8 +44,9 @@ class Search
         result_strings_count += 1
         item = XmlItem.find_by(csl_id:)
         @items << {
-          id: item.id,
+          csl_id: item.csl_id,
           full_name: "#{item.first_name} #{item.last_name}".strip,
+          fitted_name: fitted_word.strip,
           coefficient: (fitted_coef * 100).round(2)
         }
         fitted = false
@@ -53,6 +56,7 @@ class Search
     query.search_errors = e unless is_history
   ensure
     @time_stop = Time.zone.now
+    @items.sort_by! { |item| item[:coefficient] }.reverse!
 
     query.update(time_stop: @time_stop) unless is_history
   end

@@ -21,8 +21,9 @@
           <table className="table">
             <thead>
               <tr>
-                <th></th>
-                <th>Имя</th>
+                <th>ID</th>
+                <th>Основное имя</th>
+                <th>Совпавшее имя</th>
                 <th>Коэффициент</th>
               </tr>
             </thead>
@@ -32,8 +33,9 @@
                 :key="item"
               >
               <!-- Посмотреть структуру -->
-                <th>{{ item.id }}</th>
+                <th>{{ item.csl_id }}</th>
                 <td>{{ item.full_name }}</td>
+                <td>{{ item.fitted_name }}</td>
                 <td>{{ item.coefficient }}</td>
               </tr>
             </tbody>

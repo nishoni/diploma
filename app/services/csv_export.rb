@@ -21,19 +21,21 @@ class CsvExport
 
   private
 
-  # TODO: проверить структуру
   def column_names
     [
-      'Имя',
+      'ID',
+      'Основное имя',
+      'Совпавшее имя',
       'Коэффициент'
     ]
   end
 
-  # TODO: проверить структуру
   def row(item)
     [
-      item["full_name"],
-      item["coefficient"]
+      item[:csl_id],
+      item[:full_name],
+      item[:fitted_name],
+      item[:coefficient]
     ]
   end
 end

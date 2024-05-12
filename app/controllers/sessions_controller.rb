@@ -19,4 +19,8 @@ class SessionsController < ApplicationController
       render json: { path: '/sign_in', message: "Error" }
     end
   end
+
+  def get_user_info
+    render json: { name: @user&.login || 'stranger' }
+  end
 end
