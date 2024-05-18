@@ -6,7 +6,7 @@
           <div class="stat-title">Зарегистрированных пользователей</div>
           <div class="stat-value mt-5">{{ mainStatistics.users.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From {{ mainStatistics.users.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
+            <p>C {{ mainStatistics.users.created || 0 }} до {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>
@@ -15,7 +15,7 @@
           <div class="stat-title">Запросов выполнено</div>
           <div class="stat-value mt-5">{{ mainStatistics.queries.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From {{ mainStatistics.queries.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
+            <p>C {{ mainStatistics.queries.created || 0 }} до {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
           <div class="stat-title">Версий БД загружено</div>
           <div class="stat-value mt-5">{{ mainStatistics.db_versions.count || 0 }}</div>
           <div class="stat-desc mt-5">
-            <p>From {{ mainStatistics.db_versions.created || 0 }} to {{ mainStatistics.today || 0 }}</p>
+            <p>C {{ mainStatistics.db_versions.created || 0 }} до {{ mainStatistics.today || 0 }}</p>
           </div>
         </div>
       </div>

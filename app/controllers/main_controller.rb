@@ -9,6 +9,8 @@ class MainController < ApplicationController
   end
 
   def search
+    return unless params[:search_field]
+
     @search ||= Search.new(search_field: params[:search_field], user_id: session[:user_id])
     @search.perform
 

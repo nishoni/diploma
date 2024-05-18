@@ -27,17 +27,17 @@ class DatabaseSettingsController < ApplicationController
     render json: {
       users: {
         count: User.count,
-        created: User.first.created_at.strftime('%d %B %Y')
+        created: User.first.created_at.strftime('%d.%m.%Y')
       },
       queries: {
         count: Query.count,
-        created: Query.first.created_at.strftime('%d %B %Y')
+        created: Query.first.created_at.strftime('%d.%m.%Y')
       },
       db_versions: {
         count: DbVersion.count,
-        created: DbVersion.first.created_at.strftime('%d %B %Y')
+        created: DbVersion.first.created_at.strftime('%d.%m.%Y')
       },
-      today: Time.zone.now.strftime('%d %B %Y')
+      today: Time.zone.now.strftime('%d.%m.%Y')
     }
   end
 

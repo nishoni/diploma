@@ -56,7 +56,7 @@ class Search
     query.search_errors = e unless is_history
   ensure
     @time_stop = Time.zone.now
-    @items.sort_by! { |item| item[:coefficient] }.reverse!
+    @items&.sort_by! { |item| item[:coefficient] }&.reverse!
 
     query.update(time_stop: @time_stop) unless is_history
   end

@@ -21,6 +21,6 @@ class SessionsController < ApplicationController
   end
 
   def get_user_info
-    render json: { name: @user&.login || 'stranger' }
+    render json: { name: @user&.login || 'stranger', role: @user&.role }
   end
 end

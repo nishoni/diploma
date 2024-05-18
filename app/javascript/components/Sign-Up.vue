@@ -12,10 +12,10 @@
       </div>
     </div>
     <div class="flex justify-center mb-2 mt-3">
-      <button className="btn btn-neutral" @click="signUp">Sign Up</button>
+      <button className="btn btn-neutral" @click="signUp">Регистрация</button>
     </div>
     <div class="flex justify-center mb-2">
-      Already has an account? <button class="btn-link ml-1 mb-5" @click="signInPath">Sign In</button>
+      Уже есть аккаунт? <button class="btn-link ml-1 mb-5" @click="signInPath">Войти</button>
     </div>
   </div>
 </template>
@@ -35,17 +35,17 @@ export default {
         'login': {
           value: null,
           name: 'login',
-          placeholder: 'Login'
+          placeholder: 'Логин'
         },
         'password': {
           value: null,
           name: 'password',
-          placeholder: 'Password'
+          placeholder: 'Пароль'
         },
         'password_conf': {
           value: null,
           name: 'password_conf',
-          placeholder: 'Password Confirmation'
+          placeholder: 'Подтверждение пароля'
         },
       }
     }

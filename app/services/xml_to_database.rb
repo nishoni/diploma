@@ -11,7 +11,7 @@ class XmlToDatabase
     @db_version.user_id = user_id
     created_items = 0
 
-    @parsed_file = Nokogiri::XML(File.open(file[:file]))
+    @parsed_file = Nokogiri::XML(File.open(file))
 
     parsed_file.xpath("//DATA").each do |data|
       if xml_items_by_csl_id[data.xpath("CSL_ID").children.to_s.to_i]

@@ -22,10 +22,10 @@
       </label>
     </div> -->
     <div class="flex justify-center mb-2 mt-3">
-      <button className="btn btn-neutral" @click="signIn">Sign In</button>
+      <button className="btn btn-neutral" @click="signIn">Вход</button>
     </div>
     <div class="flex justify-center mb-2">
-      Not registered yet? <button class="btn-link ml-1 mb-5" @click="signUpPath">Sign Up</button>
+      Еще нет аккаунта? <button class="btn-link ml-1 mb-5" @click="signUpPath">Зарегистрироваться</button>
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
         'password': {
           value: null,
           name: 'password',
-          placeholder: 'Password'
+          placeholder: 'Пароль'
         }
       }
     }

@@ -3,11 +3,11 @@
     <div class="flex justify-center">
       <div class="static w-3/4 mr-10 ml-20">
         <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Search" />
+          <input type="text" className="grow" placeholder="Введите строку" />
         </label>
       </div>
       <div class="static">
-        <button className="btn btn-neutral" @click="startSearch">Search</button>
+        <button className="btn btn-neutral" @click="startSearch">Поиск</button>
       </div>
     </div>
     <!-- Здесь таблица по запросам -->
@@ -17,10 +17,10 @@
             <thead>
               <tr class="items-center">
                 <th></th>
-                <th>Word</th>
-                <th>Time</th>
-                <th>Download</th>
-                <th>Delete</th>
+                <th>Слово</th>
+                <th>Время</th>
+                <th>Загрузка</th>
+                <th>Удаление</th>
               </tr>
             </thead>
             <tbody>
