@@ -32,7 +32,6 @@
                 v-for="item in items"
                 :key="item"
               >
-              <!-- Посмотреть структуру -->
                 <th>{{ item.csl_id }}</th>
                 <td>{{ item.full_name }}</td>
                 <td>{{ item.fitted_name }}</td>

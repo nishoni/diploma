@@ -3,7 +3,12 @@
     <div class="flex justify-center">
       <div class="static w-3/4 mr-10 ml-20">
         <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Введите строку" />
+          <input
+            type="text"
+            className="grow"
+            placeholder="Введите строку"
+            @input="(event) => updateField(event)"
+          />
         </label>
       </div>
       <div class="static">
@@ -28,10 +33,9 @@
                 v-for="query in queries"
                 :key="query"
               >
-              <!-- Посмотреть структуру -->
                 <th>{{ query.id }}</th>
                 <td>{{ query.word }}</td>
-                <td>{{ formattedDate(query.time_start) }}</td>
+                <td>{{ query.time_start }}</td>
                 <td>
                   <div class="flex flex-col items-center">
                     <button className="btn btn-neutral" @click="csvExport(query)">CSV экспорт</button>
@@ -58,7 +62,8 @@ export default {
     return {
       queries: null,
       options: {},
-      today: null
+      today: null,
+      search_field: null
     }
   },
   async created() {
@@ -71,7 +76,13 @@ export default {
   },
   methods: {
     startSearch() {
-      console.log('startSearch')
+      axios.post('history_search', {
+        search_field: this.search_field
+      }).then(response => {
+        this.queries = response.data.queries
+      }).catch(error => {
+        console.log(error)
+      })
     },
     csvExport(query) {
       axios.get('history_export', {
@@ -96,11 +107,8 @@ export default {
         console.log(error)
       })
     },
-    formattedDate(date) {
-      this.options = { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' }
-      this.today = new Date(date)
-
-      return this.today.toLocaleDateString("en-US", this.options)
+    updateField(event) {
+      this.search_field = event.target.value
     }
   }
 }

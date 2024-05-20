@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get 'get_queries', to: 'history#queries'
   get 'history_export', to: 'history#export'
+  post 'history_search', to: 'history#search'
 
   get 'setting_fields', to: 'search_settings#setting_fields'
   post 'save_settings', to: 'search_settings#save_settings'
